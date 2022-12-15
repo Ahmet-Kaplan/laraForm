@@ -18,21 +18,34 @@ RUN apt-get update \
   && apt-get -y install --no-install-recommends \
     locales \
     git \
+    npm \
+    libtool automake autoconf nasm \
     unzip \
     libzip-dev \
     libicu-dev \
     libonig-dev \
-  && apt-get clean \
+    libpng-dev \
+    libpq-dev \
+ && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && locale-gen en_US.UTF-8 \
   && localedef -f UTF-8 -i en_US en_US.UTF-8 \
   && docker-php-ext-install \
     intl \
+    gd \
+    exif \
     pdo_mysql \
+    pdo_pgsql \
     zip \
     bcmath \
   && composer config -g process-timeout 3600 \
   && composer config -g repos.packagist composer https://packagist.org
+
+RUN curl -fsSL https://deb.nodesource.com/setup_current.x | bash - && \
+    apt-get install -y nodejs \
+    build-essential && \
+    node --version && \ 
+    npm --version
 
 FROM base AS development
 

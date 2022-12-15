@@ -1,0 +1,4 @@
+FROM bitnami/postgresql:15
+
+ENV POSTGRESQL_TIMEZONE=UTC
+
